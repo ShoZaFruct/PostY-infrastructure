@@ -1,0 +1,3 @@
+#cloud-config
+runcmd:
+  - git clone https://github.com/ShoZaFruct/postY.git /opt/posty
