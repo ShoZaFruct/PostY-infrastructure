@@ -17,12 +17,13 @@ resource "yandex_compute_instance" "backend_vm" {
   }
 
   network_interface {
-    subnet_id = yandex_vpc_subnet.default.id
-    nat       = true
+    subnet_id      = yandex_vpc_subnet.default.id
+    nat            = true
+    nat_ip_address = yandex_vpc_address.static_ip.external_ipv4_address[0].address
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/id_ed25519.pub")}"
+    ssh-keys  = "ubuntu:${file("~/.ssh/id_ed25519.pub")}"
     user-data = file("cloud-init.yaml")
   }
 }
