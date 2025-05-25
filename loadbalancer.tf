@@ -24,7 +24,7 @@ resource "yandex_alb_backend_group" "backend_group" {
       interval = "10s"
 
       http_healthcheck {
-        path = "/"
+        path = "/api/doc"
       }
     }
   }
@@ -65,7 +65,9 @@ resource "yandex_alb_load_balancer" "alb" {
 
     endpoint {
       address {
-        external_ipv4_address {}
+          external_ipv4_address {
+            address = yandex_vpc_address.static_ip.external_ipv4_address[0].address
+          }
       }
       ports = [80]
     }

@@ -17,9 +17,12 @@ resource "yandex_compute_instance" "backend_vm" {
   }
 
   network_interface {
-    subnet_id      = yandex_vpc_subnet.default.id
-    nat            = true
-    nat_ip_address = yandex_vpc_address.static_ip.external_ipv4_address[0].address
+    subnet_id = yandex_vpc_subnet.default.id
+    nat       = false
+
+    security_group_ids = [
+      yandex_vpc_security_group.allow_alb.id
+    ]
   }
 
   metadata = {
